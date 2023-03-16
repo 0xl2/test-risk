@@ -3,6 +3,7 @@ export interface IToken {
   symbol: string;
   address: string;
   logo: string;
+  decimal: number;
 }
 
 export interface IPayload {
@@ -15,4 +16,10 @@ export interface IReqBody {
   channel: string;
   requestId: string;
   payload: IPayload | null;
+}
+
+export interface IOBItem {
+  takerAmount: number;
+  makerAmount: number;
+  total: number;
 }

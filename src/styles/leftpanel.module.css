@@ -1,0 +1,19 @@
+.tblDiv {
+  color: #adb1b8;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.tblHead {
+  padding: 20px 5px 10px;
+}
+
+.qtItem,
+.totalItem,
+.priceItem {
+  padding: 10px 2px
+}
+
+.symbol {
+  color: #20b26c;
+}
