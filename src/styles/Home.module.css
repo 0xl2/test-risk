@@ -10,8 +10,13 @@
 }
 
 .cardDiv {
-  /* border-bottom: 1px solid #e7e3eb; */
+  border-bottom: 1px solid #e7e3eb;
   padding: 2rem;
+}
+
+.cardDiv:last-child,
+.collapseHead .cardDiv {
+  border-bottom: none;
 }
 
 .selectDiv {
@@ -28,8 +33,10 @@
 
 .jmgGTH {
   cursor: pointer;
-  padding: 2rem 0;
-  margin-left: 4rem;
+  padding: 2.2rem 0;
+  position: absolute;
+  right: 0;
+  margin-right: 3rem;
 }
 
 .collapseHead {
@@ -80,7 +87,7 @@
 .listDiv {
   margin-top: 10px;
   overflow-y: auto;
-  max-height: 190px;
+  height: 180px;
 }
 
 .listDiv::-webkit-scrollbar {

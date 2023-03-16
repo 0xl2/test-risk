@@ -126,7 +126,7 @@ export default function Home() {
             <div className={styles.selectDiv}>
               <Collapse className="collapse" isOpened={open}>
                 <div className={styles.cardDiv}>
-                  <p className={styles.title}>Select tokens</p>
+                  <p className={styles.title}>Tokens</p>
                 </div>
                 <div className={styles.cardDiv}>
                   <button
