@@ -24,54 +24,54 @@ const LeftPanel = ({
   const [askList, setAsklist] = useState<IOBItem[]>([]);
   const [bidList, setBidList] = useState<IOBItem[]>([]);
 
-  // useEffect(() => {
-  //   // init ws
-  //   const ws = new WebSocket(socketUrl);
+  useEffect(() => {
+    // init ws
+    const ws = new WebSocket(socketUrl);
 
-  //   // function for ws open
-  //   ws.onopen = () => {
-  //     console.log(`websocekt connection opened`);
+    // function for ws open
+    ws.onopen = () => {
+      console.log(`websocekt connection opened`);
 
-  //     // send subscribe request
-  //     ws.send(
-  //       JSON.stringify({
-  //         type: "subscribe",
-  //         channel: "orders",
-  //         requestId: requestID,
-  //       })
-  //     );
-  //   };
+      // send subscribe request
+      ws.send(
+        JSON.stringify({
+          type: "subscribe",
+          channel: "orders",
+          requestId: requestID,
+        })
+      );
+    };
 
-  //   // update when receive msg from socket server
-  //   ws.onmessage = (event: any) => {
-  //     const eventInfo = JSON.parse(event.data);
-  //     // handle only if my request
-  //     if (eventInfo.requestId == requestID && takerToken && makerToken) {
-  //       //   console.log(`received message: ${eventInfo}`);
-  //       const bidPayload = eventInfo.payload.filter(
-  //         (item: any) =>
-  //           // item.order.takerToken.toLowerCase() == takerToken.address.toLowerCase() &&
-  //           item.order.makerToken.toLowerCase() ==
-  //           makerToken.address.toLowerCase()
-  //       );
+    // update when receive msg from socket server
+    ws.onmessage = (event: any) => {
+      const eventInfo = JSON.parse(event.data);
+      // handle only if my request
+      if (eventInfo.requestId == requestID && takerToken && makerToken) {
+        //   console.log(`received message: ${eventInfo}`);
+        const bidPayload = eventInfo.payload.filter(
+          (item: any) =>
+            // item.order.takerToken.toLowerCase() == takerToken.address.toLowerCase() &&
+            item.order.makerToken.toLowerCase() ==
+            makerToken.address.toLowerCase()
+        );
 
-  //       const askPayload = eventInfo.payload.filter(
-  //         (item: any) =>
-  //           // item.order.takerToken.toLowerCase() == makerToken.address.toLowerCase() &&
-  //           item.order.makerToken.toLowerCase() ==
-  //           takerToken.address.toLowerCase()
-  //       );
+        const askPayload = eventInfo.payload.filter(
+          (item: any) =>
+            // item.order.takerToken.toLowerCase() == makerToken.address.toLowerCase() &&
+            item.order.makerToken.toLowerCase() ==
+            takerToken.address.toLowerCase()
+        );
 
-  //       if (bidPayload.length > 0) updateBids(bidPayload);
-  //       if (askPayload.length > 0) updateAsks(askPayload);
-  //     }
-  //   };
+        if (bidPayload.length > 0) updateBids(bidPayload);
+        if (askPayload.length > 0) updateAsks(askPayload);
+      }
+    };
 
-  //   // close socket when page close
-  //   return () => {
-  //     ws.close();
-  //   };
-  // }, []);
+    // close socket when page close
+    return () => {
+      ws.close();
+    };
+  }, []);
 
   useEffect(() => {
     const initData = async () => {
@@ -132,8 +132,12 @@ const LeftPanel = ({
     let totalVal = 0;
     let askArr: IOBItem[] = [];
 
+    let totalCnt = 0;
+
     if (list.length > 0) {
       for (let ii = 0; ii < list.length; ii++) {
+        if (ii > 100) break;
+
         const askItem = list[ii].order;
         const takerAmt = formatAmount(askItem.takerAmount);
         totalVal += takerAmt;
@@ -143,12 +147,14 @@ const LeftPanel = ({
           makerAmount: formatAmount(askItem.makerAmount, false),
           total: totalVal,
         });
+
+        totalCnt++;
       }
     }
 
-    console.log(askList.length, "askList");
-
     for (let ii = 0; ii < askList.length; ii++) {
+      if (totalCnt + ii > 100) break;
+
       const askItem = askList[ii];
       totalVal += askItem.takerAmount;
       askArr.push({
@@ -156,19 +162,25 @@ const LeftPanel = ({
         makerAmount: askItem.makerAmount,
         total: totalVal,
       });
+
+      totalCnt++;
     }
 
-    console.log(askArr, "askarr");
+    console.log("askarr here", askArr);
 
-    setAsklist(askArr);
+    setAsklist((askList) => askArr);
   };
 
   const updateBids = (list: any[]) => {
     let totalVal = 0;
     let bidArr: IOBItem[] = [];
 
+    let totalCnt = 0;
+
     if (list.length > 0) {
       for (let ii = 0; ii < list.length; ii++) {
+        if (ii > 100) break;
+
         const bidItem = list[ii].order;
         const takerAmt = formatAmount(bidItem.takerAmount, false);
         totalVal += takerAmt;
@@ -178,12 +190,14 @@ const LeftPanel = ({
           makerAmount: formatAmount(bidItem.makerAmount),
           total: totalVal,
         });
+
+        totalCnt++;
       }
     }
 
-    console.log(bidList.length, "bidList");
-
     for (let ii = 0; ii < bidList.length; ii++) {
+      if (totalCnt + ii > 100) break;
+
       const bidItem = bidList[ii];
       const takerAmt = bidItem.takerAmount;
       totalVal += takerAmt;
@@ -192,11 +206,13 @@ const LeftPanel = ({
         makerAmount: bidItem.makerAmount,
         total: totalVal,
       });
+
+      totalCnt++;
     }
 
-    console.log(bidArr.length, "bidArr");
+    console.log("bidarr here", bidArr);
 
-    setBidList(bidArr);
+    setBidList((bidList) => bidArr);
   };
 
   return (
