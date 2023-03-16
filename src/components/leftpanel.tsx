@@ -24,54 +24,54 @@ const LeftPanel = ({
   const [askList, setAsklist] = useState<IOBItem[]>([]);
   const [bidList, setBidList] = useState<IOBItem[]>([]);
 
-  useEffect(() => {
-    // init ws
-    const ws = new WebSocket(socketUrl);
+  // useEffect(() => {
+  //   // init ws
+  //   const ws = new WebSocket(socketUrl);
 
-    // function for ws open
-    ws.onopen = () => {
-      console.log(`websocekt connection opened`);
+  //   // function for ws open
+  //   ws.onopen = () => {
+  //     console.log(`websocekt connection opened`);
 
-      // send subscribe request
-      ws.send(
-        JSON.stringify({
-          type: "subscribe",
-          channel: "orders",
-          requestId: requestID,
-        })
-      );
-    };
+  //     // send subscribe request
+  //     ws.send(
+  //       JSON.stringify({
+  //         type: "subscribe",
+  //         channel: "orders",
+  //         requestId: requestID,
+  //       })
+  //     );
+  //   };
 
-    // update when receive msg from socket server
-    ws.onmessage = (event: any) => {
-      const eventInfo = JSON.parse(event.data);
-      // handle only if my request
-      if (eventInfo.requestId == requestID && takerToken && makerToken) {
-        //   console.log(`received message: ${eventInfo}`);
-        const bidPayload = eventInfo.payload.filter(
-          (item: any) =>
-            // item.order.takerToken.toLowerCase() == takerToken.address.toLowerCase() &&
-            item.order.makerToken.toLowerCase() ==
-            makerToken.address.toLowerCase()
-        );
+  //   // update when receive msg from socket server
+  //   ws.onmessage = (event: any) => {
+  //     const eventInfo = JSON.parse(event.data);
+  //     // handle only if my request
+  //     if (eventInfo.requestId == requestID && takerToken && makerToken) {
+  //       //   console.log(`received message: ${eventInfo}`);
+  //       const bidPayload = eventInfo.payload.filter(
+  //         (item: any) =>
+  //           // item.order.takerToken.toLowerCase() == takerToken.address.toLowerCase() &&
+  //           item.order.makerToken.toLowerCase() ==
+  //           makerToken.address.toLowerCase()
+  //       );
 
-        const askPayload = eventInfo.payload.filter(
-          (item: any) =>
-            // item.order.takerToken.toLowerCase() == makerToken.address.toLowerCase() &&
-            item.order.makerToken.toLowerCase() ==
-            takerToken.address.toLowerCase()
-        );
+  //       const askPayload = eventInfo.payload.filter(
+  //         (item: any) =>
+  //           // item.order.takerToken.toLowerCase() == makerToken.address.toLowerCase() &&
+  //           item.order.makerToken.toLowerCase() ==
+  //           takerToken.address.toLowerCase()
+  //       );
 
-        if (bidPayload.length > 0) updateBids(bidPayload);
-        if (askPayload.length > 0) updateAsks(askPayload);
-      }
-    };
+  //       if (bidPayload.length > 0) updateBids(bidPayload);
+  //       if (askPayload.length > 0) updateAsks(askPayload);
+  //     }
+  //   };
 
-    // close socket when page close
-    return () => {
-      ws.close();
-    };
-  }, []);
+  //   // close socket when page close
+  //   return () => {
+  //     ws.close();
+  //   };
+  // }, []);
 
   useEffect(() => {
     const initData = async () => {

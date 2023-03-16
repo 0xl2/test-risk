@@ -7,6 +7,7 @@
 
 .bidDiv {
   padding-left: 1rem;
+  padding-right: 10px;
 }
 
 .askDiv {
@@ -20,7 +21,7 @@
 .qtItem,
 .totalItem,
 .priceItem {
-  padding: 10px 2px
+  padding: 10px 5px;
 }
 
 .qtItem,
