@@ -57,7 +57,7 @@ const RightPanel = ({
     <div className={styles.selectDiv}>
       <Collapse className="collapse" isOpened={open}>
         <div className={styles.cardDiv}>
-          <p className={styles.title}>Tokens</p>
+          <p className={styles.title}>Choose Token</p>
         </div>
         <div className={styles.cardDiv}>
           <button
@@ -67,7 +67,7 @@ const RightPanel = ({
               setOpen(false);
             }}
           >
-            {makerToken ? makerToken.name : "Maker Token"}
+            {makerToken ? makerToken.name : "First Token"}
             <span className={styles.btnSpan}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -92,7 +92,7 @@ const RightPanel = ({
               setOpen(false);
             }}
           >
-            {takerToken ? takerToken.name : "Taker Token"}
+            {takerToken ? takerToken.name : "Second Token"}
             <span className={styles.btnSpan}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

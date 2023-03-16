@@ -1,5 +1,5 @@
 .title {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 600;
 }
 
@@ -120,4 +120,9 @@
   position: absolute;
   left: 5px;
   top: 13px;
+}
+
+.mainContainer {
+  margin-top: 50px;
+  margin-bottom: 50px;
 }

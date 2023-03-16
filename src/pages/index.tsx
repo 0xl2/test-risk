@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Container, Grid } from "@mui/material";
 
-import { IToken, IPayload, IReqBody } from "../../constants/interface";
+import { IToken } from "../../constants/interface";
 
 import HeadPanel from "@/components/headpanel";
 import LeftPanel from "@/components/leftpanel";
 import RightPanel from "@/components/rightpanel";
+
+import styles from "@/styles/Home.module.css"
 
 export default function Home() {
   const [makerToken, setMakerToken] = useState<IToken | null>(null);
@@ -14,7 +16,7 @@ export default function Home() {
   return (
     <>
       <HeadPanel />
-      <Container>
+      <Container className={styles.mainContainer}>
         <Grid container spacing={2}>
           <Grid item xs={9}>
             <LeftPanel makerToken={makerToken} takerToken={takerToken} />

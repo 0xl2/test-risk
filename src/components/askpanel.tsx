@@ -14,7 +14,8 @@ const AskPanel = ({
   takerToken: string;
 }) => {
   return (
-    <div className={styles.tblDiv}>
+    <div className={styles.askDiv}>
+      <span className={styles.rightHeader}>Ask List</span>
       <Grid container spacing={2} className={styles.tblHead}>
         <Grid item xs={4}>
           Maker Amount <br />

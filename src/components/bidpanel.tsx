@@ -14,7 +14,8 @@ const BidPanel = ({
   takerToken: string;
 }) => {
   return (
-    <div className={styles.tblDiv}>
+    <div className={styles.bidDiv}>
+      <span className={styles.rightHeader}>Bid List</span>
       <Grid container spacing={2} className={styles.tblHead}>
         <Grid item xs={4} className={styles.priceItem}>
           Maker Amount <br />

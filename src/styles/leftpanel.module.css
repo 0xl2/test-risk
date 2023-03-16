@@ -1,7 +1,16 @@
-.tblDiv {
+.askDiv,
+.bidDiv {
   color: #adb1b8;
   font-size: 13px;
   font-weight: 600;
+}
+
+.bidDiv {
+  padding-left: 1rem;
+}
+
+.askDiv {
+  padding-right: 1rem;
 }
 
 .tblHead {
@@ -14,6 +23,25 @@
   padding: 10px 2px
 }
 
+.qtItem,
+.totalItem {
+  text-align: right;
+}
+
 .symbol {
   color: #20b26c;
+}
+
+.leftDiv {
+  background: #17181e;
+  height: calc(100vh - 100px);
+  border-radius: 20px;
+}
+
+.rightHeader {
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+  width: 100%;
+  display: block;
 }

@@ -6,6 +6,7 @@ import { IToken, IOBItem } from "../../constants/interface";
 
 import BidPanel from "@/components/bidpanel";
 import AskPanel from "@/components/askpanel";
+import styles from "@/styles/leftpanel.module.css";
 
 // init socket url
 const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || "";
@@ -145,7 +146,7 @@ const LeftPanel = ({
       }
     }
 
-    console.log(askList.length, "askList")
+    console.log(askList.length, "askList");
 
     for (let ii = 0; ii < askList.length; ii++) {
       const askItem = askList[ii];
@@ -157,7 +158,7 @@ const LeftPanel = ({
       });
     }
 
-    console.log(askArr, "askarr")
+    console.log(askArr, "askarr");
 
     setAsklist(askArr);
   };
@@ -180,7 +181,7 @@ const LeftPanel = ({
       }
     }
 
-    console.log(bidList.length, "bidList")
+    console.log(bidList.length, "bidList");
 
     for (let ii = 0; ii < bidList.length; ii++) {
       const bidItem = bidList[ii];
@@ -193,13 +194,13 @@ const LeftPanel = ({
       });
     }
 
-    console.log(bidArr.length, "bidArr")
+    console.log(bidArr.length, "bidArr");
 
     setBidList(bidArr);
   };
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} className={styles.leftDiv}>
       <Grid item xs={6}>
         <AskPanel
           oblist={askList}
