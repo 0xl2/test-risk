@@ -36,19 +36,21 @@ const AskPanel = ({
           )}
         </Grid>
       </Grid>
-      {oblist.map((mkItem: IOBItem, ind: number) => (
-        <Grid container spacing={2} key={ind}>
-          <Grid item xs={4} className={styles.priceItem}>
-            {mkItem.makerAmount.toFixed(2)}
+      <div className={styles.itemDiv}>
+        {oblist.map((mkItem: IOBItem, ind: number) => (
+          <Grid container spacing={2} key={ind}>
+            <Grid item xs={4} className={styles.priceItem}>
+              {mkItem.makerAmount.toFixed(2)}
+            </Grid>
+            <Grid item xs={4} className={styles.qtItem}>
+              {mkItem.takerAmount.toFixed(2)}
+            </Grid>
+            <Grid item xs={4} className={styles.totalItem}>
+              {mkItem.total.toFixed(2)}
+            </Grid>
           </Grid>
-          <Grid item xs={4} className={styles.qtItem}>
-            {mkItem.takerAmount.toFixed(2)}
-          </Grid>
-          <Grid item xs={4} className={styles.totalItem}>
-            {mkItem.total.toFixed(2)}
-          </Grid>
-        </Grid>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };

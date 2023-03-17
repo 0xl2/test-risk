@@ -46,20 +46,26 @@ const LeftPanel = ({
     ws.onmessage = (event: any) => {
       const eventInfo = JSON.parse(event.data);
       // handle only if my request
-      if (eventInfo.requestId == requestID && takerToken && makerToken) {
-        //   console.log(`received message: ${eventInfo}`);
-        const bidPayload = eventInfo.payload.filter(
-          (item: any) =>
-            // item.order.takerToken.toLowerCase() == takerToken.address.toLowerCase() &&
-            item.order.makerToken.toLowerCase() ==
-            makerToken.address.toLowerCase()
-        );
-
+      if (
+        eventInfo.requestId == requestID &&
+        takerToken != null &&
+        makerToken != null
+      ) {
+        // console.log(`received message: ${eventInfo}`);
         const askPayload = eventInfo.payload.filter(
           (item: any) =>
-            // item.order.takerToken.toLowerCase() == makerToken.address.toLowerCase() &&
+            item.order.takerToken.toLowerCase() ==
+              makerToken.address.toLowerCase() &&
             item.order.makerToken.toLowerCase() ==
-            takerToken.address.toLowerCase()
+              takerToken.address.toLowerCase()
+        );
+
+        const bidPayload = eventInfo.payload.filter(
+          (item: any) =>
+            item.order.takerToken.toLowerCase() ==
+              takerToken.address.toLowerCase() &&
+            item.order.makerToken.toLowerCase() ==
+              makerToken.address.toLowerCase()
         );
 
         if (bidPayload.length > 0) updateBids(bidPayload);
@@ -71,7 +77,7 @@ const LeftPanel = ({
     return () => {
       ws.close();
     };
-  }, []);
+  }, [bidList, askList]);
 
   useEffect(() => {
     const initData = async () => {
@@ -130,13 +136,12 @@ const LeftPanel = ({
 
   const updateAsks = (list: any[]) => {
     let totalVal = 0;
-    let askArr: IOBItem[] = [];
-
     let totalCnt = 0;
+    let askArr: IOBItem[] = [];
 
     if (list.length > 0) {
       for (let ii = 0; ii < list.length; ii++) {
-        if (ii > 100) break;
+        if (totalCnt > 100) break;
 
         const askItem = list[ii].order;
         const takerAmt = formatAmount(askItem.takerAmount);
@@ -157,6 +162,7 @@ const LeftPanel = ({
 
       const askItem = askList[ii];
       totalVal += askItem.takerAmount;
+
       askArr.push({
         takerAmount: askItem.takerAmount,
         makerAmount: askItem.makerAmount,
@@ -166,20 +172,17 @@ const LeftPanel = ({
       totalCnt++;
     }
 
-    console.log("askarr here", askArr);
-
     setAsklist((askList) => askArr);
   };
 
   const updateBids = (list: any[]) => {
     let totalVal = 0;
-    let bidArr: IOBItem[] = [];
-
     let totalCnt = 0;
+    let bidArr: IOBItem[] = [];
 
     if (list.length > 0) {
       for (let ii = 0; ii < list.length; ii++) {
-        if (ii > 100) break;
+        if (totalCnt > 100) break;
 
         const bidItem = list[ii].order;
         const takerAmt = formatAmount(bidItem.takerAmount, false);
@@ -210,9 +213,7 @@ const LeftPanel = ({
       totalCnt++;
     }
 
-    console.log("bidarr here", bidArr);
-
-    setBidList((bidList) => bidArr);
+    setBidList(bidArr);
   };
 
   return (
