@@ -6,7 +6,7 @@ NEXT_PUBLIC_SOCKET_URL=socket_url
 NEXT_PUBLIC_API_URL=api_url
 ```
 
-Please check [.env.development](https://github.com/naruto0913/test-risk/blob/master/.env.development)
+Please check [.env.development](https://github.com/naruto0913/test-risk/blob/master/.env.development) for reference.
 
 2. Install npm pacakges:
 ```bash
